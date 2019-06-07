@@ -1,0 +1,72 @@
+<div class="container">
+    <br>
+    <div class="card-deck">
+        <div ng-repeat="noticia in noticias">
+            <div class="card" style="max-width: 18rem;">
+                <!--<img src="..." class="card-img-top" alt="...">-->
+                <div class="card-body">
+                    <h5 class="card-title">{{ noticia.titulo_noticia }}</h5>
+                    <p class="card-text">{{ noticia.texto_noticia }}</p>
+                    <a href="#" class="btn btn-secondary" ng-click="modalEditar(noticia.id_noticia)">Editar</a>
+                    <a href="#" class="btn btn-dark" ng-click="modalDeletar(noticia.id_noticia)">Deletar</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{ noticia.data }}</small>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="modalNoticia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-product-title">{{ flegNoticia.titulo }}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-dinminder">
+
+                        <div class="form-group">
+                            <label for="name" class="control-label">Título</label>
+                            <input type="text" class="form-control" placeholder="Título" ng-model="titulo">
+                            <br>
+                            <label for="name" class="control-label">Descrição</label>
+                            <textarea type="text" class="form-control" placeholder="Descrição" ng-model="texto"></textarea>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success" ng-if="flegNoticia.acao == 1" ng-click="adicionarNoticas()">
+                        Salvar
+                    </button>
+                    <button type="button" class="btn btn-success" ng-if="flegNoticia.acao == 0" ng-click="editarNoticia()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAviso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-product-title">Deletar Notícia</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>Realmente deseja deletar a notícia?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" ng-click="deletarNoticia()">Deletar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
