@@ -5,6 +5,8 @@ function noticiasCtrl($scope, constants, conect, $filter, $rootScope) {
         titulo: 'Adicionar Notícia',
         acao: 1
     }
+    $scope.flagArquivo = true;
+    $scope.flagImg = false;
 
     init();
 
@@ -94,6 +96,20 @@ function noticiasCtrl($scope, constants, conect, $filter, $rootScope) {
         let dataNoticias = $filter('date')(new Date(data), 'dd-MM-yyyy HH:mm:ss', false);
         let corpo = '';
 
+        /*if ($scope.comSemImg == 1) {
+            $scope.noticias.forEach((value, key) => {
+                if (key < 3) {
+                    corpo += `\t<noticia titulo="${value.titulo_noticia}"\n\ttexto="${value.texto_noticia}"\n\timagem="img.jpg" criado="${value.data}" />\n`;
+                }
+            })
+        } else {
+            $scope.noticias.forEach((value, key) => {
+                if (key < 3) {
+                    corpo += `\t<noticia titulo="${value.titulo_noticia}"\n\ttexto="${value.texto_noticia}"\n\tcriado="${value.data}" />\n`;
+                }
+            })
+        }*/
+
         $scope.noticias.forEach((value, key) => {
             if (key < 3) {
                 corpo += `\t<noticia titulo="${value.titulo_noticia}"\n\ttexto="${value.texto_noticia}"\n\timagem="img.jpg" criado="${value.data}" />\n`;
@@ -106,6 +122,10 @@ function noticiasCtrl($scope, constants, conect, $filter, $rootScope) {
 
         let blob = new Blob(arquivo, { type: "text/plain;charset=utf-8" });
         saveAs(blob, "noticias.xml");
+
+        $('#modalArquivo').modal('hide');
+        $scope.flagArquivo = true;
+        $scope.flagImg = false;
     }
 
     $rootScope.gerarArquivoJson = () => {
@@ -118,6 +138,16 @@ function noticiasCtrl($scope, constants, conect, $filter, $rootScope) {
 
         let blob = new Blob([arquivo], { type: "application/json" });
         saveAs(blob, "noticias.json");
+
+        $('#modalArquivo').modal('hide');
+        $scope.flagArquivo = true;
+        $scope.flagImg = false;
+    }
+
+    $scope.validaTipoArquivo = tipo => {
+        $scope.flagArquivo = false;
+        $scope.flagImg = true;
+        $scope.tipoArquivo = tipo;
     }
 }
 
